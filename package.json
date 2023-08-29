@@ -2,6 +2,7 @@
     "name": "tmdb",
     "private": true,
     "version": "0.0.0",
+    "type": "module",
     "scripts": {
         "dev": "vite",
         "build": "vite build",
@@ -10,9 +11,14 @@
     },
     "dependencies": {
         "axios": "^1.5.0",
+        "bcrypt": "^5.1.1",
+        "cookie-parser": "^1.4.6",
+        "cors": "^2.8.5",
         "express": "^4.18.2",
-        "nodemon": "^3.0.1",
+        "jsonwebtoken": "^9.0.1",
+        "morgan": "^1.10.0",
         "pg": "^8.11.3",
+        "pg-hstore": "^2.3.4",
         "react": "^18.2.0",
         "react-dom": "^18.2.0",
         "react-router-dom": "^6.15.0",
@@ -27,6 +33,7 @@
         "eslint-plugin-react": "^7.32.2",
         "eslint-plugin-react-hooks": "^4.6.0",
         "eslint-plugin-react-refresh": "^0.4.3",
+        "nodemon": "^3.0.1",
         "vite": "^4.4.5"
     }
 }

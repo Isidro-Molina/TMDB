@@ -1,18 +1,151 @@
 h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
-  padding: 2rem;
-  text-align: center;
+    font-size: 3.2em;
+    line-height: 1.1;
+    padding: 2rem;
+    text-align: center;
 }
 
-.content{
-  margin: 0 auto;
-  padding: 1.4rem;
-  width: 98vw;
-  border: 2px solid;
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  gap: 20px;
-  justify-content: space-evenly;
+.navbar span {
+    text-decoration: underline;
+    cursor: pointer;
+    color: lightblue;
+}
+
+.content {
+    margin: 0 auto;
+    padding: 1.4rem;
+    width: 98vw;
+    border: 2px solid;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: space-evenly;
+}
+
+.movies {
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    border: 2px solid;
+    padding: 1rem;
+    background-color: gray;
+}
+
+.cardContent {
+    width: 100%;
+    padding: 6px;
+    border: 2px solid;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.showMore {
+    padding: 0.4rem;
+}
+
+.login {
+    padding: 4px;
+    width: 100px;
+}
+
+.navbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.signUp {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.signUpCard {
+    background-color: rgb(101, 97, 97);
+    position: relative;
+    max-width: 500px;
+    width: 100%;
+    height: 350px;
+}
+
+.logInCard {
+    background-color: rgb(101, 97, 97);
+    border: 2px solid;
+    position: relative;
+    max-width: 500px;
+    width: 100%;
+    height: 220px;
+}
+
+.close_btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 20px;
+    cursor: pointer;
+    color: black;
+}
+
+.signUpContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    margin-top: 30px;
+}
+
+.logInContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    margin: 0 auto;
+    margin-top: 20px;
+}
+
+.signUpForm {
+    padding: 20px;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.logInForm{
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    margin-top: 10px;
+}
+
+.logInForm input {
+    font-size: 16pt;
+    padding: 4px;
+}
+
+.signUpForm input {
+    font-size: 16pt;
+    padding: 4px;
+}
+
+.signUpContainer button {
+    width: 100px;
+    padding: 4px;
+}
+
+.logInForm button{
+    width: 100px;
+    padding: 4px;
 }

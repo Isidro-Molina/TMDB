@@ -1,4 +1,1 @@
-const Movie = require('./Movies')
-
-
-module.exports = {Movie}
+export {default as User} from './Users.js'

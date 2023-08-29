@@ -1,4 +1,4 @@
-const Sequelize = require('sequelize');
+import Sequelize from 'sequelize';
 
 const db = new Sequelize('tmdb', null, null, {
     host: 'localhost',
@@ -6,4 +6,4 @@ const db = new Sequelize('tmdb', null, null, {
     logging: false,
 });
 
-module.exports = db;
+export default db
