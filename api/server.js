@@ -1,15 +1,14 @@
 // Configuración del server
 import express from 'express';
 import cors from 'cors'
-const app = express();
 import db from './config/db.js';
 import users from './routes/users-routes.js'
 import { User } from './models/index.js';
 import cookieParser from 'cookie-parser';
+const app = express();
 
 app.use(cookieParser());
 app.use(express.json());
-
 app.use(cors({
     credentials: true,
     origin: 'http://localhost:5173',

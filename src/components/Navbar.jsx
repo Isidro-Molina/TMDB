@@ -1,59 +1,51 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Signup } from './Signup';
+import { Register } from './Register';
 import { Login } from './Login';
+import { AuthContext } from '../context/AuthContext';
 
 export const Navbar = () => {
-    const [showSignup, setShow] = useState(false)
-    const [showLogin, setLog] = useState(false)
+    const [showRegister, setShowRegister] = useState(false);
+    const [showLogin, setShowLogin] = useState(false);
+    const { user, logout } = useContext(AuthContext);
 
     const handleRegister = () => {
-        showSignup ? setShow(false) : setShow(true)
-    }
+        setShowRegister(!showRegister);
+    };
 
     const handleLog = () => {
-        showLogin ? setLog(false) : setLog(true)
-    }
+        setShowLogin(!showLogin);
+    };
+
+    // const handleLogout = () => {
+    //     toggleAuth(null);
+    // };
 
     return (
         <div>
             <nav className="navbar">
                 <h1>The Movie Database</h1>
                 <input type="text" placeholder="Search Movies" />
-                <Link onClick={handleLog} to="/login">
-                    <span>LOGIN</span>
-                </Link>
-                <div>
-                    Not a user?
-                    <Link onClick={handleRegister} to="/signup">
-                        <span>REGISTER</span>
-                    </Link>
-                </div>
-            </nav>
-            {(showLogin && (
-                <div className="signUp">
-                    <div className="logInCard">
-                        <Link to="/">
-                            <span className="close_btn" onClick={handleLog}>
-                                X
-                            </span>
+                {user ? (
+                    <div>
+                        Welcome {user.name} <button onClick={logout}>LOGOUT</button>
+                    </div>
+                ) : (
+                    <div>
+                        <Link onClick={handleLog} to="/login">
+                            <span>LOGIN</span>
                         </Link>
-                        <Login />
+                        <br />
+                            <p>Not an user?
+                        <Link onClick={handleRegister} to="/register">
+                            <span>REGISTER</span>
+                        </Link>
+                        </p>
                     </div>
-                </div>
-            )) ||
-                (showSignup && (
-                    <div className="signUp">
-                        <div className="signUpCard">
-                            <Link to="/">
-                                <span className="close_btn" onClick={handleRegister}>
-                                    X
-                                </span>
-                            </Link>
-                            <Signup />
-                        </div>
-                    </div>
-                ))}
+                )}
+            </nav>
+            {showLogin && <Login handleLog={handleLog} />}
+            {showRegister && <Register handleRegister={showRegister} />}
         </div>
     );
 };

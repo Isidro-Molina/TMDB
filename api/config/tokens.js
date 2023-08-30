@@ -4,7 +4,7 @@ const SECRET = 'milanesa';
 
 export function generateToken(payload) {
     const token = jwt.sign({ payload }, SECRET, {
-        expiresIn: '5h',
+        expiresIn: '2d',
     });
     return token;
 }

@@ -6,46 +6,111 @@ h1 {
 }
 
 .navbar span {
+    margin: 10px;
     text-decoration: underline;
     cursor: pointer;
     color: lightblue;
 }
 
+.navbar p {
+    margin-top: 10px;
+}
+
+/* ################################################ */
+/* MOVIES CSS */
 .content {
-    margin: 0 auto;
-    padding: 1.4rem;
-    width: 98vw;
     border: 2px solid;
     display: flex;
-    flex-direction: row;
+    justify-content: space-between;
     flex-wrap: wrap;
-    gap: 20px;
-    justify-content: space-evenly;
+    gap: 40px;
+    padding: 1.5rem;
+    box-sizing: border-box;
 }
 
 .movies {
     margin: 0 auto;
+    width: 300px;
     display: flex;
     align-items: center;
     flex-direction: column;
     border: 2px solid;
-    padding: 1rem;
+    padding: 1.4rem;
     background-color: gray;
 }
 
 .cardContent {
-    width: 100%;
-    padding: 6px;
-    border: 2px solid;
+    width: 300px;
+    padding: 7px;
+    /* border: 2px solid red; */
     display: flex;
     align-items: center;
     flex-direction: column;
+    margin-top: 10px;
+}
+
+.cardContent p {
+    text-align: center;
 }
 
 .showMore {
-    padding: 0.4rem;
+    margin-top: 20px;
+    padding: 0.5rem;
 }
 
+.cardDetailsOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.cardDetails {
+    position: relative;
+    border: 2px solid;
+    width: 50%;
+    height: 700px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow-y: auto;
+    background-color: grey;
+    padding: 10px;
+}
+
+.cardDetails button{
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 1.6rem;
+}
+
+.cardDetails h2{
+    margin: 10px;
+}
+
+.cardDetails img{
+    margin: 10px;
+    margin-top: 20px;
+    border: 2px solid;
+}
+
+.cardDetails p{
+    margin: 10px;
+    padding: 20px;
+}
+
+
+/* ################################################ */
+/* LOGIN/REGISTER CSS */
 .login {
     padding: 4px;
     width: 100px;
@@ -75,6 +140,7 @@ h1 {
     max-width: 500px;
     width: 100%;
     height: 350px;
+    border: 2px solid;
 }
 
 .logInCard {
@@ -92,7 +158,7 @@ h1 {
     right: 10px;
     font-size: 20px;
     cursor: pointer;
-    color: black;
+    color: white;
 }
 
 .signUpContainer {
@@ -121,7 +187,7 @@ h1 {
     flex-direction: column;
 }
 
-.logInForm{
+.logInForm {
     display: flex;
     gap: 10px;
     align-items: center;
@@ -145,7 +211,7 @@ h1 {
     padding: 4px;
 }
 
-.logInForm button{
+.logInForm button {
     width: 100px;
     padding: 4px;
 }
