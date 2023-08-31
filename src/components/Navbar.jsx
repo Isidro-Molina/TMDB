@@ -3,11 +3,12 @@ import { Link } from 'react-router-dom';
 import { Register } from './Register';
 import { Login } from './Login';
 import { AuthContext } from '../context/AuthContext';
+import axios from 'axios';
 
 export const Navbar = () => {
     const [showRegister, setShowRegister] = useState(false);
     const [showLogin, setShowLogin] = useState(false);
-    const { user, logout } = useContext(AuthContext);
+    const { user, isAuthenticated, toggleAuth } = useContext(AuthContext);
 
     const handleRegister = () => {
         setShowRegister(!showRegister);
@@ -17,18 +18,22 @@ export const Navbar = () => {
         setShowLogin(!showLogin);
     };
 
-    // const handleLogout = () => {
-    //     toggleAuth(null);
-    // };
+    const handleLogout = () => {
+        axios.post('http://localhost:8080/api/logout',null, { withCredentials: true }).then(() => toggleAuth())
+    };
 
     return (
         <div>
             <nav className="navbar">
+                <Link className='linkH1' to='/'>
                 <h1>The Movie Database</h1>
+                </Link>
                 <input type="text" placeholder="Search Movies" />
-                {user ? (
+                <Link to='/favorites/:userId'>FAVORITES</Link>
+                {isAuthenticated ? (
                     <div>
-                        Welcome {user.name} <button onClick={logout}>LOGOUT</button>
+                        <p>Welcome {user.name}</p>
+                        <button onClick={handleLogout}>LOGOUT</button>
                     </div>
                 ) : (
                     <div>
@@ -36,10 +41,11 @@ export const Navbar = () => {
                             <span>LOGIN</span>
                         </Link>
                         <br />
-                            <p>Not an user?
-                        <Link onClick={handleRegister} to="/register">
-                            <span>REGISTER</span>
-                        </Link>
+                        <p>
+                            Not an user?
+                            <Link onClick={handleRegister} to="/register">
+                                <span>REGISTER</span>
+                            </Link>
                         </p>
                     </div>
                 )}

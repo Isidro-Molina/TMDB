@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 export const Register = ({ handleRegister }) => {
     const [user, setUser] = useState({
@@ -17,6 +17,8 @@ export const Register = ({ handleRegister }) => {
         }));
     };
 
+    const navigate = useNavigate()
+
     const handlerSubmit = (evt) => {
         evt.preventDefault();
         if (user.email && user.password && user.name && user.lastname) {
@@ -24,6 +26,7 @@ export const Register = ({ handleRegister }) => {
                 .post('http://localhost:8080/api/register', user)
                 .then((res) => {
                     console.log('RESPONSE ------>', res.data);
+                    navigate('/login')
                 })
                 .catch((error) => {
                     console.error('ERROR EN SIGNUP.JSX ----->', error);

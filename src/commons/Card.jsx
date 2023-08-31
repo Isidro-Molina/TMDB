@@ -1,12 +1,17 @@
 import React from 'react';
 
-export const Card = ({ item, onShowMore }) => {
+export const Card = ({ item, onShowMore, onAddFavorite }) => {
     return (
-        <div className='movies'>
+        <div className="movies">
             <img src={`https://image.tmdb.org/t/p/w500/${item.poster_path}`} alt="" style={{ width: '256px', height: '256px' }} />
-            <div className='cardContent'>
+            <div className="cardContent">
                 <p>{item.title || item.name}</p>
-                <button className='showMore' onClick={onShowMore}>VER MAS</button>
+                <button className="showMore" onClick={onShowMore}>
+                    VER MAS
+                </button>
+                <p className="heart" onClick={() => onAddFavorite(item)}>
+                    ♡
+                </p>
             </div>
         </div>
     );

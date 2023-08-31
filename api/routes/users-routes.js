@@ -1,10 +1,8 @@
 import express from 'express';
 const router = express.Router();
 import { User } from '../models/index.js';
-import jwt from 'jsonwebtoken';
 import { generateToken } from '../config/tokens.js';
 import { validateUser } from '../middleware/auth.js';
-import cookieParser from 'cookie-parser';
 
 // USUARIOS, REGISTROS
 
@@ -30,17 +28,21 @@ router.post('/login', (req, res, next) => {
             if (!isValid) return res.send(401).json({ message: 'Failed auth' });
             else {
                 const payload = {
+                    id: user.id,
                     email: user.email,
                     name: user.name,
                     lastname: user.lastname,
                 };
                 const token = generateToken(payload);
                 res.cookie('token', token);
-                console.log('LA COOKIE ----->', req.cookies);
                 res.send(payload)
             }
         });
     });
+});
+
+router.get('/me', validateUser, (req, res, next) => {
+    res.send(req.user);
 });
 
 router.post('/logout', (req, res) => {

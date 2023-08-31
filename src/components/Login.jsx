@@ -34,7 +34,6 @@ export const Login = ({ handleLog }) => {
                     const token = tokenCookie.split('=')[1]
                     console.log('AUTH TOKEN', token);
 
-                    localStorage.setItem('token', token);
                     navigate('/');
                 })
                 .catch((error) => {

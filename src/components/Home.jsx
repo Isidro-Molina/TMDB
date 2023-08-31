@@ -2,12 +2,11 @@ import React from 'react';
 import { Navbar } from './Navbar';
 import { Content } from './Content';
 
-export const Home = ({ movies }) => {
-
+export const Home = ({ movies, onAddFavorite }) => {
     return (
         <div>
             <Navbar />
-            <Content movies={movies} />
+            <Content onAddFavorite={onAddFavorite} movies={movies} />
         </div>
     );
 };
