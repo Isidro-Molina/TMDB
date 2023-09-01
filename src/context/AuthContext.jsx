@@ -6,24 +6,21 @@ const authContextDefaultValues = {
     user: null,
     isAuthenticated: false,
     toggleAuth: () => null,
+    reloading: ()=>{}
 };
 
 export const AuthContext = createContext(authContextDefaultValues);
 
 const AuthContextProvider = ({ children }) => {
-    const [isLoggedIn, setIsLoggedIn] = useState({
-        id: 0,
-        user: null,
-        isAuthenticated: false,
-        toggleAuth: () => null,
-    });
+    const [isLoggedIn, setIsLoggedIn] = useState(authContextDefaultValues);
+    const [reload, setReload] = useState(false)
 
     useEffect(() => {
         axios
             .get('http://localhost:8080/api/me', { withCredentials: true })
             .then((res) => toggleAuth(res.data))
         .catch(()=>console.log('Necesitas Loguearte'))
-    }, []);
+    }, [reload]);
 
     const toggleAuth = (user) => {
         if (user) {
@@ -43,7 +40,11 @@ const AuthContextProvider = ({ children }) => {
         }
     };
 
-    return <AuthContext.Provider value={{ ...isLoggedIn, toggleAuth }}>{children}</AuthContext.Provider>;
+    const reloading = () => {
+        setReload(!reload)
+    }
+
+    return <AuthContext.Provider value={{ ...isLoggedIn, toggleAuth, reloading }}>{children}</AuthContext.Provider>;
 };
 
 export default AuthContextProvider;

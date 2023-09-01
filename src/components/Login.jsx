@@ -16,7 +16,7 @@ export const Login = ({ handleLog }) => {
         }));
     };
 
-    const {toggleAuth} = useContext(AuthContext);
+    const {reloading} = useContext(AuthContext);
     const navigate = useNavigate();
 
     const handleLogin = (evt) => {
@@ -26,14 +26,7 @@ export const Login = ({ handleLog }) => {
                 .post('http://localhost:8080/api/login', user, { withCredentials: true })
                 .then((res) => {
                     console.log('RES.DATA ------>', res.data);
-                    const { email, name, lastname } = res.data;
-
-                    toggleAuth({ email, name, lastname })
-                    const cookies = document.cookie.split('; ')
-                    const tokenCookie = cookies.find((cookie) => cookie.startsWith('token='))
-                    const token = tokenCookie.split('=')[1]
-                    console.log('AUTH TOKEN', token);
-
+                    reloading()
                     navigate('/');
                 })
                 .catch((error) => {

@@ -14,7 +14,6 @@ const url = 'https://api.themoviedb.org/3';
 const App = () => {
     const [movies, setMovies] = useState([]);
     const { user } = useContext(AuthContext);
-    console.log('USER EN APP.JSX ----> ', user);
 
     useEffect(() => {
         axios
@@ -23,9 +22,9 @@ const App = () => {
             .then((movie) => setMovies(movie.results));
     }, []);
 
-    const onAddFavorite = (movie) => {
+    const onAddFavorite = (movieId) => {
         axios
-            .post('http://localhost:8080/api/favorites/add', { userId: user.id, movieId: movie.id })
+            .post('http://localhost:8080/api/favorites/add', { userId: user.id, movieId })
             .then((res) => {
                 console.log('SE AGREGO A FAVORITOS --->', res.data);
             })
@@ -33,18 +32,30 @@ const App = () => {
                 if (error.message === 'Favorite already exists') {
                     console.error('Favorite already exists -->', error);
                 } else {
-                    console.error('ERROR AGREGANDO FAVORITO ----> ', error)
+                    console.error('ERROR AGREGANDO FAVORITO ----> ', error);
                 }
             });
     };
 
+        const handleRemove = (movieId) => {
+            axios
+                .delete(`http://localhost:8080/api/favorites/${user.id}/${movieId}`)
+                .then((res) => {
+                    console.log('PELI FAVORITA REMOVIDA -->', res.data);
+                    setFavoriteMovies((prev) => prev.filter((favorite) => favorite.movieId !== movieId));
+                })
+                .catch((error) => {
+                    console.error('ERROR AL REMOVER -->', error);
+                });
+        };
+
     return (
         <div>
             <Routes>
-                <Route path="/" element={<Home onAddFavorite={onAddFavorite} movies={movies} />} />
+                <Route path="/" element={<Home onAddFavorite={onAddFavorite} handleRemove={handleRemove} movies={movies} />} />
                 <Route path="/login" element={<Login />} />
                 <Route path="/register" element={<Register />} />
-                <Route path="/favorites" element={<Favorites />} />
+                <Route path="/favorites/:userId" element={<Favorites />} />
             </Routes>
         </div>
     );
