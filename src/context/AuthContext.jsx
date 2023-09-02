@@ -1,25 +1,30 @@
 import React, { createContext, useEffect, useState } from 'react';
 import axios from 'axios';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const authContextDefaultValues = {
     id: 0,
     user: null,
     isAuthenticated: false,
     toggleAuth: () => null,
-    reloading: ()=>{}
+    reloading: () => {},
 };
 
 export const AuthContext = createContext(authContextDefaultValues);
 
 const AuthContextProvider = ({ children }) => {
-    const [isLoggedIn, setIsLoggedIn] = useState(authContextDefaultValues);
-    const [reload, setReload] = useState(false)
+    const [isLoggedIn, setIsLoggedIn] = useState({
+        user: authContextDefaultValues.user,
+        isAuthenticated: authContextDefaultValues.isAuthenticated,
+    });
+    const [reload, setReload] = useState(false);
 
     useEffect(() => {
         axios
             .get('http://localhost:8080/api/me', { withCredentials: true })
             .then((res) => toggleAuth(res.data))
-        .catch(()=>console.log('Necesitas Loguearte'))
+            .catch(() => console.log('Necesitas Loguearte'));
     }, [reload]);
 
     const toggleAuth = (user) => {
@@ -27,11 +32,10 @@ const AuthContextProvider = ({ children }) => {
             setIsLoggedIn({
                 user: {
                     id: user.id,
-                    ...user
+                    ...user,
                 },
                 isAuthenticated: true,
             });
-            // console.log(user);
         } else {
             setIsLoggedIn({
                 user: null,
@@ -41,8 +45,8 @@ const AuthContextProvider = ({ children }) => {
     };
 
     const reloading = () => {
-        setReload(!reload)
-    }
+        setReload(!reload);
+    };
 
     return <AuthContext.Provider value={{ ...isLoggedIn, toggleAuth, reloading }}>{children}</AuthContext.Provider>;
 };

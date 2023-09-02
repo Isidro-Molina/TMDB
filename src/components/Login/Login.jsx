@@ -1,7 +1,10 @@
 import axios from 'axios';
 import React, { useContext, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { AuthContext } from '../context/AuthContext';
+import { AuthContext } from '../../context/AuthContext';
+import './Login.css'
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export const Login = ({ handleLog }) => {
     const [user, setUser] = useState({
@@ -24,12 +27,13 @@ export const Login = ({ handleLog }) => {
         if (user.email && user.password) {
             axios
                 .post('http://localhost:8080/api/login', user, { withCredentials: true })
-                .then((res) => {
-                    console.log('RES.DATA ------>', res.data);
+                .then(() => {
+                    toast.success('You are now logged in!', {position: 'top-right'})
                     reloading()
                     navigate('/');
                 })
                 .catch((error) => {
+                    toast.error('Login failed.')
                     console.error('ERROR EN LOGIN.JSX ----->', error);
                 });
         }
@@ -39,7 +43,7 @@ export const Login = ({ handleLog }) => {
         <div className="logInContainer">
             <h2>Log In</h2>
             <Link to="/">
-                <span className="close_btn" onClick={handleLog}>
+                <span onClick={handleLog}>
                     X
                 </span>
             </Link>

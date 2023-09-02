@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
+import './Register.css'
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export const Register = ({ handleRegister }) => {
     const [user, setUser] = useState({
@@ -24,11 +27,12 @@ export const Register = ({ handleRegister }) => {
         if (user.email && user.password && user.name && user.lastname) {
             axios
                 .post('http://localhost:8080/api/register', user)
-                .then((res) => {
-                    console.log('RESPONSE ------>', res.data);
+                .then(() => {
+                    toast.success('User created successfully!')
                     navigate('/login')
                 })
                 .catch((error) => {
+                    toast.error('User creation failed.')
                     console.error('ERROR EN SIGNUP.JSX ----->', error);
                 });
         }
@@ -38,7 +42,7 @@ export const Register = ({ handleRegister }) => {
         <div className="signUpContainer">
             <h2>Sign Up</h2>
             <Link to="/">
-                <span className="close_btn" onClick={handleRegister}>
+                <span onClick={handleRegister}>
                     X
                 </span>
             </Link>

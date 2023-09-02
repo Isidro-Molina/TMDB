@@ -1,0 +1,124 @@
+* {
+    padding: 0;
+    box-sizing: border-box;
+    margin: 0;
+}
+
+h1 {
+    font-size: 2.5em;
+    line-height: 1.1;
+    padding: 0.5rem;
+    text-align: center;
+    color: white;
+}
+
+.linkH1 {
+    text-decoration: none;
+}
+
+.navbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    padding: 10px;
+    height: 100px;
+    border-bottom: 2px solid;
+}
+
+.navbar form input {
+    font-size: 14pt;
+    padding: 7px;
+    border-radius: 7px;
+    border: 1px solid rgba(143, 142, 142, 0.602);
+    outline: none;
+}
+
+.navbar form {
+    padding: 12px;
+    display: flex;
+    align-items: center;
+}
+
+.lupaContainer {
+    padding: 10px;
+    margin-left: 10px;
+}
+
+.lupa {
+    color: white;
+    font-size: 14pt;
+}
+
+.favorites {
+    text-decoration: none;
+    color: white;
+}
+
+.favorites:hover {
+    color: lightblue;
+    transition: all 0.7s;
+}
+
+.optionContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 15px;
+    gap: 7px;
+}
+
+.navbarLogin {
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+    width: fit-content;
+    margin: 0 auto;
+    color: white;
+    padding: 5px;
+}
+
+.navbarLogin:hover {
+    color: lightblue;
+    transition: all 0.7s;
+}
+
+.not {
+    color: rgb(191, 190, 190);
+}
+
+.navbarRegister {
+    color: white;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.navbarRegister span {
+    padding: 10px;
+}
+
+.navbarRegister span:hover {
+    color: lightblue;
+    transition: all 0.7s;
+}
+
+.navbarLogout {
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.navbarLogout button {
+    text-align: center;
+    cursor: pointer;
+    padding: 5px;
+    width: 100px;
+    background-color: rgba(3, 3, 3, 0.4);
+    border-radius: 7px;
+}
+
+.navbarLogout button:hover{
+    transition: all 0.7s ease;
+    background-color: rgb(249, 57, 57);
+}

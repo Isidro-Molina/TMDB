@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
-import { Card } from '../commons/Card';
-import { CardDetails } from '../commons/CardDetails';
+import { Card } from '../../commons/Card/Card';
+import { CardDetails } from '../../commons/CardDetails/CardDetails';
+import './Content.css'
+
 
 export const Content = ({ movies, onAddFavorite, handleRemove }) => {
     const [selectedMovie, setSelectedMovie] = useState(null);

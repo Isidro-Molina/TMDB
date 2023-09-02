@@ -4,7 +4,6 @@ import { User } from '../models/index.js';
 import { generateToken } from '../config/tokens.js';
 import { validateUser } from '../middleware/auth.js';
 
-// USUARIOS, REGISTROS
 
 router.get('/', (req, res) => {
     res.sendStatus(200);
