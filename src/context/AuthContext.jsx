@@ -1,7 +1,5 @@
 import React, { createContext, useEffect, useState } from 'react';
 import axios from 'axios';
-import { toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 
 const authContextDefaultValues = {
     id: 0,
@@ -24,7 +22,7 @@ const AuthContextProvider = ({ children }) => {
         axios
             .get('http://localhost:8080/api/me', { withCredentials: true })
             .then((res) => toggleAuth(res.data))
-            .catch(() => console.log('Necesitas Loguearte'));
+            .catch(() => console.error('Necesitas Loguearte'));
     }, [reload]);
 
     const toggleAuth = (user) => {

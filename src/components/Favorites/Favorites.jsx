@@ -44,6 +44,7 @@ export const Favorites = ({onSearch, handleRemove }) => {
                 // movieRes contiene todos los datos de las peliculas
                 .then((movieRes) => {
                     const movie = movieRes.map((res) => res.data);
+                    console.log('------>', movie);
                     setFavoriteMovies(movie);
                 })
                 .catch((error) => {

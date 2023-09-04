@@ -1,7 +1,7 @@
 .movies {
     margin: 0 auto;
     width: 300px;
-    height: fit-content;
+    height: 480px;
     padding: 1.4rem;
     border-radius: 10px;
     display: flex;
@@ -19,8 +19,8 @@
 }
 
 .cardContent {
+    padding: 7px;
     width: 300px;
-    padding: 4px;
     font-weight: 600;
     display: flex;
     align-items: center;

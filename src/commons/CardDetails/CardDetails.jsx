@@ -22,20 +22,6 @@ export const CardDetails = ({ movie, onClose }) => {
             });
     }, []);
 
-    const getGenres = () => {
-        if (genres.length === 0 || !movie) {
-            return 'NO GENRES'
-        }
-
-        const genreNames = movie.genre_ids.map((genreId) => {
-            const genre = genres.find((genre) => genre.id === genreId);
-            return genre ? genre.name : 'N/A'
-        })
-
-        return genreNames.join(', ')
-    };
-
-
     return (
         <div className="cardDetailsOverlay">
             <div className="cardDetails" style={cardStyle}>
@@ -49,7 +35,6 @@ export const CardDetails = ({ movie, onClose }) => {
                 <div className="cardDetailsText">
                     <p>{movie.overview}</p>
                     <p>RELEASE DATE: {movie.release_date}</p>
-                    <p>GENRES: {getGenres()}</p>
                     <p>RATING: {parseInt(movie.vote_average)} / 10</p>
                 </div>
             </div>

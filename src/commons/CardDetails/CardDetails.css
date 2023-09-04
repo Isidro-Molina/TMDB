@@ -14,7 +14,7 @@
     margin-top: 80px;
     position: relative;
     border: 2px solid;
-    height: 650px;
+    height: fit-content;
     width: 80%;
     background-repeat: no-repeat;
     background-size: cover;

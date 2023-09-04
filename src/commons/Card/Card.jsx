@@ -13,10 +13,12 @@ export const Card = ({ item, onShowMore, onAddFavorite, handleRemove }) => {
                     <FontAwesomeIcon icon={faHeart} />
                 </button>
                 <br />
+                <div>
                 <button className="showMore" onClick={onShowMore}>
-                    VER MAS
+                    SHOW MORE
                 </button>
                 <button className='remove' onClick={() => handleRemove(item.id)}>REMOVE</button>
+                </div>
             </div>
         </div>
     );

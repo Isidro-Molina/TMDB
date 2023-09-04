@@ -15,7 +15,7 @@ const url = 'https://api.themoviedb.org/3';
 
 const App = () => {
     const [movies, setMovies] = useState([]);
-    const { user, reloading, toggleAuth } = useContext(AuthContext);
+    const { user, reloading} = useContext(AuthContext);
     const [searchMovies, setSearchMovie] = useState([]);
 
     useEffect(() => {
@@ -32,7 +32,7 @@ const App = () => {
         axios
             .post('http://localhost:8080/api/favorites/add', { userId: user.id, movieId })
             .then(() => {
-                toast.success('Se agrego');
+                toast.success('Movie added successfully!');
             })
             .catch((error) => {
                 toast.error('This movie is already in your favorites!');
@@ -41,6 +41,9 @@ const App = () => {
     };
 
     const handleRemove = (movieId) => {
+        if (user === null) {
+            toast.warning('You need to be logged in');
+        }
         axios
             .delete(`http://localhost:8080/api/favorites/${user.id}/${movieId}`)
             .then(() => {
