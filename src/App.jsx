@@ -15,7 +15,7 @@ const url = 'https://api.themoviedb.org/3';
 
 const App = () => {
     const [movies, setMovies] = useState([]);
-    const { user, reloading } = useContext(AuthContext);
+    const { user, reloading, toggleAuth } = useContext(AuthContext);
     const [searchMovies, setSearchMovie] = useState([]);
     const [userFavorites, setUserFavorites] = useState([]);
 
@@ -27,11 +27,13 @@ const App = () => {
     }, []);
 
     useEffect(() => {
-        if (user) {
+        if (user && user.id) {
             axios
                 .get(`http://localhost:8080/api/favorites/${user.id}`)
                 .then((res) => setUserFavorites(res.data))
                 .catch((error) => console.error('Error al traer favoritos  ->', error));
+        } else {
+            setUserFavorites([])
         }
     }, [user]);
 
@@ -72,15 +74,24 @@ const App = () => {
         setSearchMovie(searchRes);
     };
 
+        const handleLogout = () => {
+            axios.post('http://localhost:8080/api/logout', null, { withCredentials: true }).then(() => {
+                toggleAuth();
+                reloading();
+                toast('Goodbye!');
+                setUserFavorites([])
+            });
+        };
+
     return (
         <div>
             <ToastContainer position="top-center" autoClose={2000} pauseOnFocusLoss={false} pauseOnHover={false} />
             <Routes>
-                <Route path="/" element={<Home toggleFavorite={toggleFavorite} movies={movies} onSearch={onSearch} userFavorites={userFavorites || []} />} />
+                <Route path="/" element={<Home toggleFavorite={toggleFavorite} movies={movies} onSearch={onSearch} userFavorites={userFavorites || []} handleLogout={handleLogout} />} />
                 <Route path="/login" element={<Login />} />
                 <Route path="/register" element={<Register />} />
-                <Route path="/favorites/:userId" element={<Favorites onSearch={onSearch} userFavorites={userFavorites} toggleFavorite={toggleFavorite} />} />
-                <Route path="/search" element={<Search toggleFavorite={toggleFavorite} onSearch={onSearch} searchMovies={searchMovies} userFavorites={userFavorites} />} />
+                <Route path="/favorites/:userId" element={<Favorites onSearch={onSearch} userFavorites={userFavorites} toggleFavorite={toggleFavorite} handleLogout={handleLogout} />} />
+                <Route path="/search" element={<Search toggleFavorite={toggleFavorite} onSearch={onSearch} searchMovies={searchMovies} userFavorites={userFavorites} handleLogout={handleLogout} />} />
             </Routes>
         </div>
     );

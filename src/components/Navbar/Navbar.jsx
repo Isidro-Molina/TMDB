@@ -14,10 +14,10 @@ const searchUrl = 'https://api.themoviedb.org/3/search/movie?api_key=';
 // multi en vez de tv para todo
 const API_KEY = import.meta.env.VITE_APP_APIKEY;
 
-export const Navbar = ({ onSearch }) => {
+export const Navbar = ({ onSearch, handleLogout }) => {
     const [showRegister, setShowRegister] = useState(false);
     const [showLogin, setShowLogin] = useState(false);
-    const { user, isAuthenticated, toggleAuth } = useContext(AuthContext);
+    const { user, isAuthenticated } = useContext(AuthContext);
     const [searchMovie, setSearchMovie] = useState('');
 
     const navigate = useNavigate();
@@ -28,13 +28,6 @@ export const Navbar = ({ onSearch }) => {
 
     const handleLog = () => {
         setShowLogin(!showLogin);
-    };
-
-    const handleLogout = () => {
-        axios.post('http://localhost:8080/api/logout', null, { withCredentials: true }).then(() => {
-            toggleAuth();
-            toast('Goodbye!')
-        });
     };
 
     const handleSearch = () => {

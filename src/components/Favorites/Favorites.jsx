@@ -3,12 +3,12 @@ import { Navbar } from '../Navbar/Navbar';
 import { Content } from '../Content/Content';
 import { AuthContext } from '../../context/AuthContext';
 import axios from 'axios';
-import './Favorites.css'
+import './Favorites.css';
 
 const API_KEY = import.meta.env.VITE_APP_APIKEY;
 const url = 'https://api.themoviedb.org/3';
 
-export const Favorites = ({onSearch, userFavorites, toggleFavorite }) => {
+export const Favorites = ({ onSearch, userFavorites, toggleFavorite, handleLogout }) => {
     const { user } = useContext(AuthContext);
     const [favoriteMovies, setFavoriteMovies] = useState([]);
 
@@ -56,9 +56,15 @@ export const Favorites = ({onSearch, userFavorites, toggleFavorite }) => {
 
     return (
         <div>
-            <Navbar onSearch={onSearch} />
-            <h2>Favorite Movies</h2>
-            {favoriteMovies.length === 0 ? <h3>Add something!</h3> : <Content toggleFavorite={toggleFavorite} movies={favoriteMovies} userFavorites={userFavorites} />}
+            <Navbar handleLogout={handleLogout} onSearch={onSearch} />
+            {user ? (
+                <>
+                    <h2>Favorite Movies</h2>
+                    {favoriteMovies.length === 0 ? <h3>Add something!</h3> : <Content toggleFavorite={toggleFavorite} movies={favoriteMovies} userFavorites={userFavorites} />}
+                </>
+            ) : (
+                <h3>You are not logged in!</h3>
+            )}
         </div>
     );
 };
