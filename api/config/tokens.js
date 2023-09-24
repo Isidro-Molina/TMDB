@@ -1,12 +1,14 @@
 import jwt from 'jsonwebtoken';
+import dotenv from 'dotenv'
+dotenv.config()
 
-const SECRET = 'milanesa';
+const SECRET = process.env.SECRET;
 
 export function generateToken(payload) {
     const token = jwt.sign({ payload }, SECRET, {
         expiresIn: '2d',
     });
-    return token;
+    return token
 }
 
 export function validateToken(token) {

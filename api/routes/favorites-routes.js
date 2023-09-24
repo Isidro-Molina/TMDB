@@ -30,7 +30,7 @@ router.get('/favorites/:userId', (req, res) => {
             res.status(200).json(favorites);
         })
         .catch((error) => {
-            res.status(500).json('ERROR DE FIND ALL --->', { error: error.message });
+            res.status(500).json({ error: error.message });
         });
 });
 

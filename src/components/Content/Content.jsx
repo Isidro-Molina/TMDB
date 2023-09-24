@@ -4,7 +4,7 @@ import { CardDetails } from '../../commons/CardDetails/CardDetails';
 import './Content.css'
 
 
-export const Content = ({ movies, onAddFavorite, handleRemove }) => {
+export const Content = ({ movies, toggleFavorite, userFavorites }) => {
     const [selectedMovie, setSelectedMovie] = useState(null);
 
     const handleShowMore = (movie) => {
@@ -14,7 +14,7 @@ export const Content = ({ movies, onAddFavorite, handleRemove }) => {
     return (
         <div className="content">
             {movies.map((item) => (
-                <Card key={item.id} item={item} onShowMore={() => handleShowMore(item)} onAddFavorite={onAddFavorite} handleRemove={handleRemove} />
+                <Card key={item.id} item={item} onShowMore={() => handleShowMore(item)} toggleFavorite={toggleFavorite} userFavorites={userFavorites} />
             ))}
             {selectedMovie && <CardDetails movie={selectedMovie} onClose={() => setSelectedMovie(null)} />}
         </div>

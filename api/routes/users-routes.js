@@ -11,7 +11,16 @@ router.get('/', (req, res) => {
 
 router.post('/register', (req, res) => {
     const { email, password, name, lastname } = req.body;
-    User.create({ email, password, name, lastname }).then((user) => res.status(201).send(user));
+    User.findOne({
+        where: {
+            email
+        }
+    }).then((existingUser) => {
+        if (existingUser) {
+            return res.status(400).json({ error: 'Email already in use' });
+        }
+        User.create({ email, password, name, lastname }).then((user) => res.status(201).send(user));
+    })
 });
 
 router.post('/login', (req, res, next) => {

@@ -2,25 +2,10 @@ import React, { useEffect, useState } from 'react';
 import './CardDetails.css';
 import axios from 'axios';
 
-const API_KEY = '7c639233f3cff010f01aa2a8c5129344';
-
 export const CardDetails = ({ movie, onClose }) => {
-    const [genres, setGenres] = useState([]);
     const cardStyle = {
         backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://image.tmdb.org/t/p/original/${movie.backdrop_path}')`,
     };
-
-    useEffect(() => {
-        axios
-            .get(`https://api.themoviedb.org/3/genre/movie/list?api_key=${API_KEY}`)
-            .then((response) => {
-                const genres = response.data.genres;
-                setGenres(genres);
-            })
-            .catch((error) => {
-                console.error('Error fetching genres:', error);
-            });
-    }, []);
 
     return (
         <div className="cardDetailsOverlay">

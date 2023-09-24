@@ -14,11 +14,6 @@ class User extends Sequelize.Model {
 
 User.init(
     {
-        id: {
-            type: Sequelize.INTEGER,
-            primaryKey: true,
-            autoIncrement: true
-        },
         email: {
             type: Sequelize.STRING,
             allowNull: false,

@@ -32,7 +32,7 @@ export const Register = ({ handleRegister }) => {
                     navigate('/login')
                 })
                 .catch((error) => {
-                    toast.error('User creation failed.')
+                    toast.error('Email already in use.')
                     console.error('ERROR EN SIGNUP.JSX ----->', error);
                 });
         }

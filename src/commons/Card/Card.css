@@ -38,13 +38,21 @@
     background: none;
     border: none;
     font-size: 24px;
-    color: #e430303d;
     cursor: pointer;
+    color: rgba(60, 60, 60, 0.7); /* Darker gray color on hover */
     transition: color 0.3s ease;
 }
 
 .heart:hover {
-    color: #ff4040;
+    color: #ff4040; /* Red on hover for non-favorites */
+}
+
+.heart.red {
+    color: red; /* Red color for favorites */
+}
+
+.heart.red:hover {
+    color: #e4303089;
 }
 
 .showMore {

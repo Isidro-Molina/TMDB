@@ -5,10 +5,10 @@ import { AuthContext } from '../../context/AuthContext';
 import axios from 'axios';
 import './Favorites.css'
 
-const API_KEY = '7c639233f3cff010f01aa2a8c5129344';
+const API_KEY = import.meta.env.VITE_APP_APIKEY;
 const url = 'https://api.themoviedb.org/3';
 
-export const Favorites = ({onSearch, handleRemove }) => {
+export const Favorites = ({onSearch, userFavorites, toggleFavorite }) => {
     const { user } = useContext(AuthContext);
     const [favoriteMovies, setFavoriteMovies] = useState([]);
 
@@ -44,7 +44,6 @@ export const Favorites = ({onSearch, handleRemove }) => {
                 // movieRes contiene todos los datos de las peliculas
                 .then((movieRes) => {
                     const movie = movieRes.map((res) => res.data);
-                    console.log('------>', movie);
                     setFavoriteMovies(movie);
                 })
                 .catch((error) => {
@@ -59,7 +58,7 @@ export const Favorites = ({onSearch, handleRemove }) => {
         <div>
             <Navbar onSearch={onSearch} />
             <h2>Favorite Movies</h2>
-            {favoriteMovies.length === 0 ? <h3>Add something!</h3> : <Content handleRemove={handleRemove} movies={favoriteMovies} />}
+            {favoriteMovies.length === 0 ? <h3>Add something!</h3> : <Content toggleFavorite={toggleFavorite} movies={favoriteMovies} userFavorites={userFavorites} />}
         </div>
     );
 };

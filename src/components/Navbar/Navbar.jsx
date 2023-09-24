@@ -12,7 +12,7 @@ import 'react-toastify/dist/ReactToastify.css';
 
 const searchUrl = 'https://api.themoviedb.org/3/search/movie?api_key=';
 // multi en vez de tv para todo
-const API_KEY = '7c639233f3cff010f01aa2a8c5129344';
+const API_KEY = import.meta.env.VITE_APP_APIKEY;
 
 export const Navbar = ({ onSearch }) => {
     const [showRegister, setShowRegister] = useState(false);

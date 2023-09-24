@@ -10,13 +10,14 @@ import { Search } from './components/Search/Search';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-const API_KEY = '7c639233f3cff010f01aa2a8c5129344';
+const API_KEY = import.meta.env.VITE_APP_APIKEY;
 const url = 'https://api.themoviedb.org/3';
 
 const App = () => {
     const [movies, setMovies] = useState([]);
-    const { user, reloading} = useContext(AuthContext);
+    const { user, reloading } = useContext(AuthContext);
     const [searchMovies, setSearchMovie] = useState([]);
+    const [userFavorites, setUserFavorites] = useState([]);
 
     useEffect(() => {
         axios
@@ -25,33 +26,45 @@ const App = () => {
             .then((movie) => setMovies(movie.results));
     }, []);
 
-    const onAddFavorite = (movieId) => {
-        if (user === null) {
-            toast.warning('You need to be logged in');
+    useEffect(() => {
+        if (user) {
+            axios
+                .get(`http://localhost:8080/api/favorites/${user.id}`)
+                .then((res) => setUserFavorites(res.data))
+                .catch((error) => console.error('Error al traer favoritos  ->', error));
         }
-        axios
-            .post('http://localhost:8080/api/favorites/add', { userId: user.id, movieId })
-            .then(() => {
-                toast.success('Movie added successfully!');
-            })
-            .catch((error) => {
-                toast.error('This movie is already in your favorites!');
-                console.error('ERROR AGREGANDO FAVORITO ----> ', error.message);
-            });
-    };
+    }, [user]);
 
-    const handleRemove = (movieId) => {
+    const toggleFavorite = (movieId) => {
         if (user === null) {
             toast.warning('You need to be logged in');
+            return;
         }
-        axios
-            .delete(`http://localhost:8080/api/favorites/${user.id}/${movieId}`)
-            .then(() => {
-                toast.info('Successfully removed from favorites!');
-            })
-            .catch((error) => {
-                console.error('ERROR AL REMOVER -->', error);
-            });
+
+        const isFavorite = Array.isArray(userFavorites) && userFavorites.some((favorite) => favorite.movieId === movieId);
+
+        if (isFavorite) {
+            axios
+                .delete(`http://localhost:8080/api/favorites/${user.id}/${movieId}`)
+                .then(() => {
+                    toast.info('Successfully removed from favorites!');
+                    setUserFavorites((prevFavorites) => prevFavorites.filter((favorite) => favorite.movieId !== movieId));
+                })
+                .catch((error) => {
+                    console.error('ERROR AL REMOVER -->', error);
+                });
+        } else {
+            axios
+                .post('http://localhost:8080/api/favorites/add', { userId: user.id, movieId })
+                .then(() => {
+                    toast.success('Movie added successfully!');
+                    setUserFavorites((prevFavorites) => [...prevFavorites, { movieId }]);
+                })
+                .catch((error) => {
+                    toast.error('This movie is already in your favorites!');
+                    console.error('ERROR AGREGANDO FAVORITO ----> ', error.message);
+                });
+        }
         reloading();
     };
 
@@ -63,11 +76,11 @@ const App = () => {
         <div>
             <ToastContainer position="top-center" autoClose={2000} pauseOnFocusLoss={false} pauseOnHover={false} />
             <Routes>
-                <Route path="/" element={<Home onAddFavorite={onAddFavorite} handleRemove={handleRemove} movies={movies} onSearch={onSearch} />} />
+                <Route path="/" element={<Home toggleFavorite={toggleFavorite} movies={movies} onSearch={onSearch} userFavorites={userFavorites || []} />} />
                 <Route path="/login" element={<Login />} />
                 <Route path="/register" element={<Register />} />
-                <Route path="/favorites/:userId" element={<Favorites onSearch={onSearch} handleRemove={handleRemove} />} />
-                <Route path="/search" element={<Search onAddFavorite={onAddFavorite} onSearch={onSearch} searchMovies={searchMovies} handleRemove={handleRemove} />} />
+                <Route path="/favorites/:userId" element={<Favorites onSearch={onSearch} userFavorites={userFavorites} toggleFavorite={toggleFavorite} />} />
+                <Route path="/search" element={<Search toggleFavorite={toggleFavorite} onSearch={onSearch} searchMovies={searchMovies} userFavorites={userFavorites} />} />
             </Routes>
         </div>
     );
