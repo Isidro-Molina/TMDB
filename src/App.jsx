@@ -18,6 +18,7 @@ const App = () => {
     const { user, reloading, toggleAuth } = useContext(AuthContext);
     const [searchMovies, setSearchMovie] = useState([]);
     const [userFavorites, setUserFavorites] = useState([]);
+    // test
 
     useEffect(() => {
         axios
